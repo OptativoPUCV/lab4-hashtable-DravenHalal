@@ -48,7 +48,7 @@ void insertMap(HashMap * map, char * key, void * value) {
     map->size++;
   }
   else{
-    while(map->buckets[map->current] != NULL || map->buckets[map->current]-> key != NULL){
+    while(map->buckets[map->current] != NULL && map->buckets[map->current]-> key != NULL){
       if(is_equal(map->buckets[map->current]->key, key)){
         return; //como la key ya existe, no se inserta nada
       }
