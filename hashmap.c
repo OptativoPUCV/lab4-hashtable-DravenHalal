@@ -44,7 +44,7 @@ void insertMap(HashMap * map, char * key, void * value) {
   map->current = hash(key, map->capacity);
   long pos = map->current;
   if(map->buckets[pos] == NULL || map->buckets[pos]->key == NULL){
-    map->buckets[pos] = createPair(key, value);
+    map->buckets[pos] = createPair(strdup(key), value);
     map->size++;
   }
   else{
@@ -55,7 +55,7 @@ void insertMap(HashMap * map, char * key, void * value) {
       //metodo de resolucion de colisiones (busqueda lineal)
       pos = (pos + 1) % map->capacity;
     }
-    map->buckets[pos] = createPair(key,  value);
+    map->buckets[pos] = createPair(strdup(key),  value);
     map->size++;
   }
 }
