@@ -71,6 +71,7 @@ void enlarge(HashMap * map) {
       insertMap(map, antiguo[k]->key, antiguo[k]->value);
     }
   }
+  free(antiguo);
   enlarge_called = 1; //no borrar (testing purposes)
 }
 
