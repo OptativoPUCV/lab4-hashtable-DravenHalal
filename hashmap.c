@@ -92,13 +92,15 @@ Pair * searchMap(HashMap * map,  char * key) {
     }
     map->current = (map->current + 1) % map->capacity;
   } while(map->buckets[map->current] != NULL);
-
   return NULL;
 }
 
 Pair * firstMap(HashMap * map) {
-
-    return NULL;
+  map->current = 0;
+  while(map->buckets[map->current] == NULL){
+    map->current++;
+  }
+  return map->buckets[map->current];
 }
 
 Pair * nextMap(HashMap * map) {
