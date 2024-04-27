@@ -42,21 +42,20 @@ int is_equal(void* key1, void* key2){
 void insertMap(HashMap * map, char * key, void * value) {
   //funcion hash a current, para guardar el nuevo par
   map->current = hash(key, map->capacity);
-  long pos = map->current;
   
-  if(map->buckets[pos] == NULL || map->buckets[pos]->key == NULL){
-    map->buckets[pos] = createPair(key, value);
+  if(map->buckets[map->current] == NULL || map->buckets[map->current]->key == NULL){
+    map->buckets[map->current] = createPair(key, value);
     map->size++;
   }
   else{
-    while(map->buckets[pos] != NULL || map->buckets[pos]-> key != NULL){
-      if(is_equal(map->buckets[pos]->key, key)){
+    while(map->buckets[map->current] != NULL || map->buckets[map->current]-> key != NULL){
+      if(is_equal(map->buckets[map->current]->key, key)){
         return; //como la key ya existe, no se inserta nada
       }
       //metodo de resolucion de colisiones (busqueda lineal)
-      pos = (pos + 1) % map->capacity;
+        map->current = (map->current + 1) % map->capacity;
     }
-    map->buckets[pos] = createPair(key,  value);
+    map->buckets[map->current] = createPair(key,  value);
     map->size++;
   }
 }
