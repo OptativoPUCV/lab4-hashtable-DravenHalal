@@ -47,7 +47,7 @@ void insertMap(HashMap * map, char * key, void * value) {
     return;
   }
   else{
-    if(is_equal(map->buckets[map->current]->key, key)){
+    if(is_equal(map->buckets[map->current]->key, key) || map->buckets[map->current] != NULL){
     map->buckets[map->current]->value = value;
     return;
     }
