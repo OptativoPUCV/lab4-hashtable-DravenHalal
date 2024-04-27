@@ -97,10 +97,11 @@ Pair * searchMap(HashMap * map,  char * key) {
 
 Pair * firstMap(HashMap * map) {
   map->current = 0;
-  while(map->buckets[map->current] == NULL){
-    map->current++;
+  if(map->buckets[map->current] != NULL){
+    return map->buckets[map->current];
   }
-  return map->buckets[map->current];
+  map->current++;
+  return NULL;
 }
 
 Pair * nextMap(HashMap * map) {
