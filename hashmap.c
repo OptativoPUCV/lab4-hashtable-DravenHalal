@@ -96,21 +96,20 @@ Pair * searchMap(HashMap * map,  char * key) {
 }
 
 Pair * firstMap(HashMap * map) {
-  map->current = 0;
-  if(map->buckets[map->current] != NULL){
-    return map->buckets[map->current];
-  }
-  map->current++;
-  return NULL;
+    if (map == NULL || map->buckets == NULL) return NULL;
+
+    // Encuentra el primer par válido en el arreglo buckets
+    for (long i = 0; i < map->capacity; i++) {
+        if (map->buckets[i] != NULL && map->buckets[i]->key != NULL) {
+            map->current = i; // Actualiza el índice current
+            return map->buckets[i];
+        }
+    }
+
+    return NULL; // No se encontró ningún par válido
 }
 
 Pair * nextMap(HashMap * map) {
-  if(map->current == -1){
-    return NULL;
-  }
-  map->current = (map->current + 1) % map->capacity;
-  if(map->buckets[map->current] != NULL){
-    return map->buckets[map->current];
-  }
+
   return NULL;
 }
