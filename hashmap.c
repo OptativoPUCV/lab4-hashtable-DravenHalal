@@ -40,18 +40,27 @@ int is_equal(void* key1, void* key2){
 
 
 void insertMap(HashMap * map, char * key, void * value) {
-  map->current = hash(key, map->capacity);
-  if(map->buckets[map->current] == NULL || map->buckets[map->current]->key == NULL){
-    map->buckets[map->current] = createPair(key, value);
-    map->size++;
-    return;
-  }
-  else{
-    if(is_equal(map->buckets[map->current]->key, key)) return;
-  }
-  
-  
+    map->current = hash(key, map->capacity);
 
+    if (map->buckets[map->current] == NULL || map->buckets[map->current]->key == NULL) {
+        // La casilla está vacía o contiene un par inválido
+        map->buckets[map->current] = createPair(strdup(key), value);
+        map->size++;
+    } else {
+        // La casilla está ocupada
+        while (map->buckets[map->current] != NULL && map->buckets[map->current]->key != NULL) {
+            // Verifica si la clave ya existe
+            if (is_equal(map->buckets[map->current]->key, key)) {
+                // La clave ya existe, no insertes nuevamente
+                return;
+            }
+            // Avanza al siguiente índice (resolución de colisiones)
+            map->current = (map->current + 1) % map->capacity;
+        }
+        // Después de encontrar una casilla vacía, inserta el par (clave, valor)
+        map->buckets[map->current] = createPair(strdup(key), value);
+        map->size++;
+    }
 }
 
 void enlarge(HashMap * map) {
