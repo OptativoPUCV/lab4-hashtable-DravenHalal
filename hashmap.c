@@ -77,8 +77,10 @@ HashMap * createMap(long capacity) {
 }
 
 void eraseMap(HashMap * map,  char * key) {    
-
-
+  Pair * elem = searchMap(map, key);
+  if(elem != NULL){
+    elem->key = NULL; 
+  }
 }
 
 Pair * searchMap(HashMap * map,  char * key) {
@@ -91,7 +93,6 @@ Pair * searchMap(HashMap * map,  char * key) {
   } while(map->buckets[map->current] != NULL);
 
   return NULL;
-  
 }
 
 Pair * firstMap(HashMap * map) {
